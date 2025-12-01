@@ -1,18 +1,301 @@
+/* Reset and base styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+@font-face {
+            font-family: 'Minecraft';
+            src: url('https://github.com/IdreesInc/Minecraft-Font/releases/download/v1.0/Minecraft.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+body {
+    font-family: Minecraft, BahnSchrift;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #545455 0%, #39383a 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
 div.mainBody {
-    width: 800px;
-    margin:auto;
+    max-width: 900px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
 }
 
-.keyword {
-    font-weight:bold;
-    color:blue;
+div.mainBody::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #f3f3f7 0%, #c7c2c1 100%);
 }
 
+/* Image styling */
+#displayImage {
+    height: 100%;
+    max-height: 512px;
+    height: auto;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    display: block;
+    margin: 0 auto 40px;
+    background: #f8f9fa;
+    padding: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#displayImage:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 4000px rgba(83, 63, 63, 0.432);
+}
+
+/* Form styling */
+#controlForm {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 40px;
+    border: 1px solid #e9ecef;
+}
+
+#controlForm table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 2px;
+}
+
+#controlForm tr {
+    transition: background-color 0.2s ease;
+}
+
+#controlForm tr:hover {
+    background-color: rgba(234, 102, 102, 0.089);
+    border-radius: 1px;
+}
+
+#controlForm td {
+    padding: 12px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+#controlForm td:last-child {
+    border-bottom: none;
+}
+
+/* Input styling */
+input[type="number"] {
+    width: 120px;
+    padding: 12px 16px;
+    border: 2px solid #efe9e9;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background: white;
+    float: right;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: #ea7a66;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 2px solid #ec6553;
+    margin-left: 12px;
+    cursor: pointer;
+    float: right;
+    position: relative;
+    top: 2px;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #f37671;
+}
+
+input[type="checkbox"]:checked::after {
+    content: '✓';
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    color: #495057;
+}
+
+/* Button styling */
 .button {
-    border-style: solid;
-    border-radius: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 32px;
+    background: linear-gradient(135deg, #575555 0%, #58575a 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(234, 102, 102, 0.3);
+    margin-top: 10px;
+}
 
-    background-color: lightGray;
-    padding: 5px;
-    border-color:black;
+.button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(234, 102, 102, 0.4);
+    color: white;
+    text-decoration: none;
+}
+
+.button:active {
+    transform: translateY(0);
+}
+
+/* Footer styling */
+div.mainBody > p {
+    margin: 24px 0;
+    color: #7d6c6c;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+div.mainBody > p:first-of-type {
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 2px solid #f1f3f5;
+}
+
+div.mainBody > p:last-of-type {
+    margin-bottom: 0;
+}
+
+div.mainBody a:not(.button) {
+    color: #d45d5d;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+}
+
+div.mainBody a:not(.button):hover {
+    color: #a24b4b;
+    border-bottom-color: #423d3d;
+}
+
+/* Copyright and links section */
+div.mainBody > p:first-of-type {
+    color: #574949;
+    font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    div.mainBody {
+        margin: 20px auto;
+        padding: 24px;
+        max-width: 95%;
+    }
+    
+    input[type="number"] {
+        width: 100px;
+    }
+    
+    #controlForm {
+        padding: 20px;
+    }
+    
+    #controlForm table {
+        border-spacing: 0 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    div.mainBody {
+        padding: 20px;
+    }
+    
+    #displayImage {
+        max-width: 200px;
+        margin-bottom: 30px;
+    }
+    
+    .button {
+        width: 100%;
+        padding: 14px 24px;
+    }
+}
+
+/* Animation for form elements */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#controlForm tr {
+    animation: fadeIn 0.4s ease forwards;
+}
+
+#controlForm tr:nth-child(1) { animation-delay: 0.1s; }
+#controlForm tr:nth-child(2) { animation-delay: 0.2s; }
+#controlForm tr:nth-child(3) { animation-delay: 0.3s; }
+#controlForm tr:nth-child(4) { animation-delay: 0.4s; }
+#controlForm tr:nth-child(5) { animation-delay: 0.5s; }
+#controlForm tr:nth-child(6) { animation-delay: 0.6s; }
+#controlForm tr:nth-child(7) { animation-delay: 0.7s; }
+#controlForm tr:nth-child(8) { animation-delay: 0.8s; }
+#controlForm tr:nth-child(9) { animation-delay: 0.9s; }
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #272727;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #3b3b3b 0%, #272727 100%);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #c3c4c7 0%, #a7a6a8 100%);
 }

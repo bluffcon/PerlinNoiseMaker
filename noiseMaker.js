@@ -170,7 +170,7 @@ function Image(width, height)
         }
     };
 
-    this.createTurbulence = function(spec)
+                this.createTurbulence = function(spec)
     {
         var numChannels = spec.color ? 3 : 1 + spec.alpha ? 1 : 0;
         var raster = new Array(this.width * this.height * numChannels);
@@ -222,39 +222,77 @@ function Image(width, height)
             for (var i = 0; i < this.width; ++i)
             {
                 var offset = (i + j * this.width) * numChannels;
-//                var val = raster[offset];
                 var r, g, b, a;
                 
                 if (spec.color)
                 {
-                    r = raster[offset];
-                    g = raster[offset + 1];
-                    b = raster[offset + 2];
-                    a = spec.alpha ? raster[offset + 3] : 1;
+                    // For terrain mode, use the first noise channel as height
+                    var height = raster[offset];
+                    
+                    // Direct mapping using your thresholds
+                    // No power curve, just raw values
+                    
+                    if (height < -0.5) {
+                        // Deep water - dark blue
+                        r = 81;
+                        g = 51;
+                        b = 200;
+                    } else if (height < -0.4) {
+                        // Shallow water - blue
+                        r = 110;
+                        g = 211;
+                        b = 255;
+                    } else if (height < -0.2) {
+                        // Beach - yellow
+                        r = 255;
+                        g = 222;
+                        b = 125;
+                    } else if (height < 0.05) {
+                        // Grass - green
+                        r = 100;
+                        g = 180;
+                        b = 80;
+                    } else if (height < 0.3) {
+                        // Hills - brown
+                        r = 125;
+                        g = 100;
+                        b = 70;
+                    } else if (height < 0.45) {
+                        // Stone peaks - gray
+                        r = 160;
+                        g = 160;
+                        b = 160;
+                    } else {
+                        // Snow peaks - white
+                        r = 240;
+                        g = 240;
+                        b = 240;
+                    }
+                    
+                    a = spec.alpha ? raster[offset + 3] : 0xff;
                 }
                 else
                 {
                     r = g = b = raster[offset];
                     a = spec.alpha ? raster[offset + 1] : 1;
+                    
+                    if (spec.absolute)
+                    {
+                        r = Math.abs(r) * 255;
+                        g = Math.abs(g) * 255;
+                        b = Math.abs(b) * 255;
+                        a = Math.abs(a) * 255;
+                    }
+                    else
+                    {
+                        r = ((r + 1) / 2) * 255;
+                        g = ((g + 1) / 2) * 255;
+                        b = ((b + 1) / 2) * 255;
+                        a = ((a + 1) / 2) * 255;
+                    }
                 }
                 
-                if (spec.absolute)
-                {
-                    r = Math.abs(r) * 255;
-                    g = Math.abs(g) * 255;
-                    b = Math.abs(b) * 255;
-                    a = Math.abs(a) * 255;
-                }
-                else
-                {
-                    r = ((r + 1) / 2) * 255;
-                    g = ((g + 1) / 2) * 255;
-                    b = ((b + 1) / 2) * 255;
-                    a = ((a + 1) / 2) * 255;
-                }
-                
-                this.setRgba(i, j, 
-                r, g, b, a);
+                this.setRgba(i, j, r, g, b, a);
             }
         }
     };
